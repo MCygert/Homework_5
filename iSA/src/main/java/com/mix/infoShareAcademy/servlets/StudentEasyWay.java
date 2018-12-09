@@ -25,10 +25,10 @@ public class StudentEasyWay extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
         PrintWriter writer = resp.getWriter();
-        List<String> parNamesList = Collections.list(req.getParameterNames());
-        for (String parameters : parNamesList) {
-            String[] parValuesList = req.getParameterValues(parameters);
-            for (String parameterValues : parValuesList) {
+        List<String> listOfParameters = Collections.list(req.getParameterNames());
+        for (String parameters : listOfParameters) {
+            String[] listOfValues = req.getParameterValues(parameters);
+            for (String parameterValues : listOfValues) {
                 writer.println(parameters + " : " + parameterValues);
             }
         }
