@@ -29,28 +29,26 @@ public class StudentServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
-    private static final String TEMPLATE_NAME = "homepage";
-    private static final String TEMPLATE_NAME_ADDED = "addedstudent";
+    private static final String TEMPLATE_NAME = "homePage";
     private static final Logger LOG = LoggerFactory.getLogger(StudentServlet.class);
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
 
-        Student randomStudent = randomStudentDao.getRandomStudent();
         Template template = templateProvider.getTemplate(
                 getServletContext(),
                 TEMPLATE_NAME);
+        Student randomStudent = randomStudentDao.getRandomStudent();
         Map<String, Object> dataModel = new HashMap<>();
         dataModel.put("student", randomStudent);
-
         try {
             template.process(dataModel, out);
         } catch (TemplateException e) {
             LOG.error("Didn't print random student" + e);
         }
-
     }
 
     @Override
@@ -75,21 +73,9 @@ public class StudentServlet extends HttpServlet {
         student.setSurname(surname);
         student.setTeam(team);
         student.setTime(date);
-        out.println("THIS IS OUR STUDENT" + student);
 
 
         StudentRepositoryDao.addUser(student);
 
-//        Template template = templateProvider.getTemplate(
-//                getServletContext(),
-//                TEMPLATE_NAME);
-//        Map<String, Object> dataModelAdded = new HashMap<>();
-//        dataModelAdded.put("studentAdd", student);
-//
-//        try {
-//            template.process(dataModelAdded, out);
-//        } catch (TemplateException e) {
-//            LOG.error("Didn't print random student" + e);
-//        }
    }
 }
