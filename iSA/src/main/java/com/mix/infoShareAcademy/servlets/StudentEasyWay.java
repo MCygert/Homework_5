@@ -15,27 +15,22 @@ import java.util.List;
 public class StudentEasyWay extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        PrintWriter out = resp.getWriter();
-        out.println("Mikolaj Cygert ");
-        out.println("JJDD5-Tailandczycy ");
-        out.println(LocalDateTime.now());
-
-
+        PrintWriter writer = resp.getWriter();
+        writer.println("Mikolaj Cygert ");
+        writer.println("JJDD5-Tailandczycy ");
+        writer.println(LocalDateTime.now());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        PrintWriter out = resp.getWriter();
-
+        resp.addHeader("Content-Type", "text/html; charset=utf-8");
+        PrintWriter writer = resp.getWriter();
         List<String> parNamesList = Collections.list(req.getParameterNames());
         for (String parameters : parNamesList) {
             String[] parValuesList = req.getParameterValues(parameters);
             for (String parameterValues : parValuesList) {
-                out.println( parameters + ":" + parameterValues);
+                writer.println(parameters + " : " + parameterValues);
             }
-
         }
     }
 }
